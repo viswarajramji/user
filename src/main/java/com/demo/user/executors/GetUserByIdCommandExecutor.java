@@ -1,15 +1,14 @@
 package com.demo.user.executors;
 
 
-import com.demo.user.CommandExecutor;
-import com.demo.user.command.CreateUserCommand;
-import com.demo.user.command.GetUserByIdCommand;
+import com.demo.user.api.QueryExecutor;
+import com.demo.user.query.GetUserByIdQuery;
 import com.demo.user.model.User;
 import com.demo.user.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
-public class GetUserByIdCommandExecutor implements CommandExecutor<GetUserByIdCommand, User> {
+public class GetUserByIdCommandExecutor implements QueryExecutor<GetUserByIdQuery, User> {
 
     private final UserRepository userRepository;
 
@@ -19,7 +18,7 @@ public class GetUserByIdCommandExecutor implements CommandExecutor<GetUserByIdCo
     }
 
     @Override
-    public User execute(GetUserByIdCommand command) {
+    public User execute(GetUserByIdQuery command) {
         return userRepository.findById(command.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }

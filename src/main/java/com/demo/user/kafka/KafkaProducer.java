@@ -1,5 +1,6 @@
 package com.demo.user.kafka;
-import com.demo.user.Command;
+import com.demo.user.api.Command;
+import com.demo.user.api.Event;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -23,10 +24,10 @@ public class KafkaProducer {
         this.objectMapper = objectMapper;
     }
 
-    public void sendCommand(Command command) {
+    public void sendEvent(Event event) {
         try {
-            String commandType = command.getClass().getName();
-            String message = objectMapper.writeValueAsString(new KafkaCommandMessage(commandType, command));
+            String eventType = event.getClass().getName();
+            String message = objectMapper.writeValueAsString(new KafkaEventMessage(eventType, event));
             for (String topic : topics) {
                 kafkaTemplate.send(topic, message);
             }

@@ -1,4 +1,4 @@
-package com.demo.user;
+package com.demo.user.api;
 
 public interface Command {
 }

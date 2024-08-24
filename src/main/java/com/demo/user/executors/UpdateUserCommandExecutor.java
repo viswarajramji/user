@@ -1,6 +1,6 @@
 package com.demo.user.executors;
 
-import com.demo.user.CommandExecutor;
+import com.demo.user.api.CommandExecutor;
 import com.demo.user.command.UpdateUserCommand;
 import com.demo.user.model.User;
 import com.demo.user.repo.UserRepository;

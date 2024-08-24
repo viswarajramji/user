@@ -1,5 +1,5 @@
 package com.demo.user.command;
-import com.demo.user.Command;
+import com.demo.user.api.Command;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

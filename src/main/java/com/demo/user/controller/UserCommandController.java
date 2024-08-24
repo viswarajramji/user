@@ -8,15 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/users/api/command")
+public class UserCommandController {
 
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserCommandController(UserService userService) {
         this.userService = userService;
     }
 
@@ -38,17 +37,4 @@ public class UserController {
         userService.executeCommand(new DeleteUserCommand(userId));
         return ResponseEntity.ok().build();
     }
-
-    @GetMapping("/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable Long userId) {
-        User result = userService.executeCommand(new GetUserByIdCommand(userId));
-        return ResponseEntity.ok(result);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> result = userService.executeCommand(new GetAllUsersCommand());
-        return ResponseEntity.ok(result);
-    }
 }
-
