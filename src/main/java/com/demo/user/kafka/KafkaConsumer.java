@@ -30,7 +30,7 @@ public class KafkaConsumer {
             JsonNode payload = node.get("payload");
 
             // Modify the commandType to replace the service name with "budget"
-            String regex = "(com\\.demo\\.)([a-zA-Z]+)(\\.command\\.)";
+            String regex = "(com\\.demo\\.)([a-zA-Z]+)(\\.event\\.)";
             String modifiedEventType = eventType.replaceAll(regex, "$1user$3");
 
             // Dynamically load the class based on the modified commandType
