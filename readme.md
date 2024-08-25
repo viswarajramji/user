@@ -68,10 +68,11 @@ graph LR
 ```mermaid
 classDiagram
     class CreateUserCommand {
-        +Long userId
-        +Map userData
-        +execute()
+        -String username
+        -String emailId
+        CreateUserCommand(String username, String emailId)
     }
+
 ```
 
 ### UpdateUserCommand
@@ -83,10 +84,12 @@ classDiagram
 ```mermaid
 classDiagram
     class UpdateUserCommand {
-        +Long userId
-        +Map userData
-        +execute()
+        -Long userId
+        -String username
+        -String emailId
+        UpdateUserCommand(Long userId, String username, String emailId)
     }
+
 ```
 
 ### DeleteUserCommand
@@ -98,9 +101,10 @@ classDiagram
 ```mermaid
 classDiagram
     class DeleteUserCommand {
-        +Long userId
-        +execute()
+        -Long userId
+        DeleteUserCommand(Long userId)
     }
+
 ```
 
 ## Queries
@@ -114,8 +118,8 @@ classDiagram
 ```mermaid
 classDiagram
     class GetUserByIdQuery {
-        +Long userId
-        +execute()
+        -Long userId
+        +GetUserByIdQuery(Long userId)
     }
 ```
 
@@ -128,35 +132,12 @@ classDiagram
 ```mermaid
 classDiagram
     class GetAllUsersQuery {
-        +execute()
+        +GetAllUsersQuery()
     }
+
 ```
 
 ## Events
-
-### UserCreatedEvent
-
-- **Triggered by**: Successful execution of `CreateUserCommand`.
-- **Purpose**: Indicates that a new user has been added to the system.
-
-```mermaid
-classDiagram
-    class UserCreatedEvent {
-        +Long userId
-    }
-```
-
-### UserUpdatedEvent
-
-- **Triggered by**: Successful execution of `UpdateUserCommand`.
-- **Purpose**: Indicates that a user's details have been updated.
-
-```mermaid
-classDiagram
-    class UserUpdatedEvent {
-        +Long userId
-    }
-```
 
 ### UserDeletedEvent
 
@@ -165,9 +146,30 @@ classDiagram
 
 ```mermaid
 classDiagram
-    class UserDeletedEvent {
-        +Long userId
+    class DeleteUserEvent {
+        -Long userId
+        DeleteUserEvent(Long userId)
     }
+
+```
+## Entity Details
+
+The `User` entity represents a user in the system and is stored in the "users" table in the database. The entity is defined with annotations to enforce constraints like non-null values and uniqueness.
+
+### User Entity Class Diagram
+
+Here is the class diagram for the `User` entity, which includes the fields and their constraints:
+
+```mermaid
+classDiagram
+    class User {
+        -Long userId
+        -String username
+        -String emailId
+        User(Long userId, String username, String emailId)
+    }
+
+
 ```
 
 ## Getting Started
