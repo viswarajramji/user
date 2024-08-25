@@ -27,6 +27,12 @@ public class UserQueryController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("/{userId}/email")
+    public ResponseEntity<String> getUserEmailById(@PathVariable Long userId) {
+        User result = userService.executeQuery(new GetUserByIdQuery(userId));
+        return ResponseEntity.ok(result.getEmailId());
+    }
+
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> result = userService.executeQuery(new GetAllUsersQuery());
