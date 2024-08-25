@@ -57,82 +57,117 @@ graph LR
     J -->|Message on all Topic| K[Kafka]
 ```
 
-## Entity Class Diagram
+## Commands
+
+### CreateUserCommand
+
+- **Purpose**: Initiates the creation of a new user.
+- **Details**: Carries user data required for creating a new user record.
+- **Executor**: Handled by `CreateUserCommandExecutor` which adds the user to the database.
 
 ```mermaid
 classDiagram
-    class User {
+    class CreateUserCommand {
         +Long userId
-        +String username
-        +String emailId
+        +Map userData
+        +execute()
     }
 ```
 
-## Command, Query, and Event Class Diagrams
+### UpdateUserCommand
 
-### Commands
-
-```mermaid
-classDiagram
-    class CreateUserCommand
-    class UpdateUserCommand
-    class DeleteUserCommand
-
-    CreateUserCommand : +userId
-    CreateUserCommand : +userData
-    UpdateUserCommand : +userId
-    UpdateUserCommand : +userData
-    DeleteUserCommand : +userId
-```
-
-### Queries
+- **Purpose**: Updates an existing user's details.
+- **Details**: Contains user ID and new data such as email or username.
+- **Executor**: `UpdateUserCommandExecutor` updates the user's details in the database.
 
 ```mermaid
 classDiagram
-    class GetUserByIdQuery
-    class GetAllUsersQuery
-
-    GetUserByIdQuery : +userId
-    GetAllUsersQuery
+    class UpdateUserCommand {
+        +Long userId
+        +Map userData
+        +execute()
+    }
 ```
 
-### Events
+### DeleteUserCommand
+
+- **Purpose**: Removes a user from the system.
+- **Details**: Includes the ID of the user to be deleted.
+- **Executor**: `DeleteUserCommandExecutor` removes the user from the database and triggers a `UserDeletedEvent`.
 
 ```mermaid
 classDiagram
-    class UserCreatedEvent
-    class UserUpdatedEvent
-    class UserDeletedEvent
-
-    UserCreatedEvent : +userId
-    UserUpdatedEvent : +userId
-    UserDeletedEvent : +userId
+    class DeleteUserCommand {
+        +Long userId
+        +execute()
+    }
 ```
 
-## Swagger Endpoint
+## Queries
 
-Access the Swagger UI to interact with the API:
+### GetUserByIdQuery
 
-- **URL**: `http://localhost:8080/swagger-ui.html`
+- **Purpose**: Retrieves detailed information about a specific user.
+- **Details**: Carries the unique ID of the user.
+- **Executor**: `GetUserByIdQueryExecutor` fetches user details from the database.
 
-## Database Entity
+```mermaid
+classDiagram
+    class GetUserByIdQuery {
+        +Long userId
+        +execute()
+    }
+```
 
-The `User` is modeled as follows:
+### GetAllUsersQuery
 
-```java
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-    
-    @Column(nullable = false)
-    private String username;
-    
-    @Column(unique = true, nullable = false)
-    private String emailId;
-}
+- **Purpose**: Retrieves a list of all users in the system.
+- **Details**: Does not require specific input parameters.
+- **Executor**: `GetAllUsersQueryExecutor` fetches all users from the database.
+
+```mermaid
+classDiagram
+    class GetAllUsersQuery {
+        +execute()
+    }
+```
+
+## Events
+
+### UserCreatedEvent
+
+- **Triggered by**: Successful execution of `CreateUserCommand`.
+- **Purpose**: Indicates that a new user has been added to the system.
+
+```mermaid
+classDiagram
+    class UserCreatedEvent {
+        +Long userId
+    }
+```
+
+### UserUpdatedEvent
+
+- **Triggered by**: Successful execution of `UpdateUserCommand`.
+- **Purpose**: Indicates that a user's details have been updated.
+
+```mermaid
+classDiagram
+    class UserUpdatedEvent {
+        +Long userId
+    }
+```
+
+### UserDeletedEvent
+
+- **Triggered by**: Successful execution of `DeleteUserCommand`.
+- **Purpose**: Indicates that a user has been removed from the system.
+
+```mermaid
+classDiagram
+    class UserDeletedEvent {
+        +Long userId
+    }
 ```
 
 ## Getting Started
@@ -156,10 +191,10 @@ To run the service locally:
 
 4. **Access the application** at `http://localhost:8080`.
 
-## Contributions
+## Swagger Endpoint
 
-Contributions are welcome! Please fork the repository, make your changes, and submit a pull request.
+Access the Swagger UI to interact with the API:
 
-## License
+- **URL**: `http://localhost:8080/swagger-ui.html`
 
-Licensed under the MIT License. See the LICENSE file for more details.
+
