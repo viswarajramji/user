@@ -38,6 +38,8 @@ graph LR
     O -->|Fetch from| I[UserRepository]
     P -->|Fetch from| I
     
+    I --> DB[(User Database)]
+    
     A[UserCommandController] -->|Create| B[CreateUserCommand]
     A -->|Update| C[UpdateUserCommand]
     A -->|Delete| D[DeleteUserCommand]
@@ -55,6 +57,7 @@ graph LR
     H -->|Deletes| I
     H -->|Publish Event| J[KafkaProducer]
     J -->|Message on Topic| K[Kafka]
+
 ```
 
 ## Commands
