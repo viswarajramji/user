@@ -9,6 +9,10 @@ The User Service is a robust Spring Boot application designed to manage user inf
 
 This service uses an event-driven architecture to enable asynchronous communication and decouple service components. Events are generated following the execution of commands and are handled independently by other parts of the application.
 
+## Sample output:
+
+![image](https://github.com/user-attachments/assets/f29a1a07-3521-4b96-820f-abd3468fe75b)
+
 ## Project Structure
 
 - `api`: Core API interfaces.
@@ -200,3 +204,6 @@ To run the service locally:
 Access the Swagger UI to interact with the API:
 
 - **URL**: `http://localhost:8080/swagger-ui.html`
+
+
+
