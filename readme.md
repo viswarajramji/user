@@ -173,6 +173,7 @@ To run the service locally:
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/viswarajramji/user.git
+   cd user
    ```
 
 2. **Build the application**:
