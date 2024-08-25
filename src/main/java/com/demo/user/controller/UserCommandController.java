@@ -29,7 +29,7 @@ public class UserCommandController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<User> updateUser(@NonNull @PathVariable Long userId, @Valid @RequestBody UpdateUserCommand command) {
+    public ResponseEntity<User> updateUser(@PathVariable Long userId, @Valid @RequestBody UpdateUserCommand command) {
         command.setUserId(userId);
         User result = userService.executeCommand(command);
         return ResponseEntity.ok(result);

@@ -63,4 +63,3 @@ public class ExecutionContextFactory {
                 executor.getClass().getGenericInterfaces()[0]).getActualTypeArguments()[0];
     }
 }
-

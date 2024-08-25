@@ -31,7 +31,7 @@ public class DeleteUserCommandExecutor implements CommandExecutor<DeleteUserComm
         return null;
     }
 
-    private Event createEvent(Long userId) {
+    public Event createEvent(Long userId) {
         return new DeleteUserEvent(userId);
     }
 
