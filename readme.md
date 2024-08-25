@@ -205,5 +205,8 @@ Access the Swagger UI to interact with the API:
 
 - **URL**: `http://localhost:8080/swagger-ui.html`
 
+## Code Coverage:
+
+![image](https://github.com/user-attachments/assets/d391d3c3-85d9-49f1-bfd3-d38137d4e4ea)
 
 
