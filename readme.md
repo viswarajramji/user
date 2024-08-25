@@ -3,11 +3,11 @@
 
 ## Overview
 
-The User Service is a robust Spring Boot application designed to manage user information efficiently. It utilizes an event-driven design pattern to enhance decoupling, scalability, and maintainability of components.
+The User Service is a robust Spring Boot application designed to manage user information efficiently. It employs an event-driven design pattern to enhance decoupling, scalability, and maintainability of components.
 
 ## Event-Driven Design Pattern
 
-This service uses an event-driven architecture to enable asynchronous communication and decouple service components. Events are generated following the execution of commands and handled independently by other parts of the application.
+This service uses an event-driven architecture to enable asynchronous communication and decouple service components. Events are generated following the execution of commands and are handled independently by other parts of the application.
 
 ## Project Structure
 
@@ -54,7 +54,7 @@ graph LR
     G -->|Updates| I
     H -->|Deletes| I
     H -->|Publish Event| J[KafkaProducer]
-    J -->|Message on all Topic| K[Kafka]
+    J -->|Message on Topic| K[Kafka]
 ```
 
 ## Commands
@@ -63,7 +63,7 @@ graph LR
 
 - **Purpose**: Initiates the creation of a new user.
 - **Details**: Carries user data required for creating a new user record.
-- **Executor**: Handled by `CreateUserCommandExecutor` which adds the user to the database.
+- **Executor**: Handled by `CreateUserCommandExecutor`, which adds the user to the database.
 
 ```mermaid
 classDiagram
@@ -72,7 +72,6 @@ classDiagram
         -String emailId
         CreateUserCommand(String username, String emailId)
     }
-
 ```
 
 ### UpdateUserCommand
@@ -89,7 +88,6 @@ classDiagram
         -String emailId
         UpdateUserCommand(Long userId, String username, String emailId)
     }
-
 ```
 
 ### DeleteUserCommand
@@ -104,7 +102,6 @@ classDiagram
         -Long userId
         DeleteUserCommand(Long userId)
     }
-
 ```
 
 ## Queries
@@ -134,7 +131,6 @@ classDiagram
     class GetAllUsersQuery {
         +GetAllUsersQuery()
     }
-
 ```
 
 ## Events
@@ -146,12 +142,12 @@ classDiagram
 
 ```mermaid
 classDiagram
-    class DeleteUserEvent {
+    class UserDeletedEvent {
         -Long userId
-        DeleteUserEvent(Long userId)
+        UserDeletedEvent(Long userId)
     }
-
 ```
+
 ## Entity Details
 
 The `User` entity represents a user in the system and is stored in the "users" table in the database. The entity is defined with annotations to enforce constraints like non-null values and uniqueness.
@@ -168,8 +164,6 @@ classDiagram
         -String emailId
         User(Long userId, String username, String emailId)
     }
-
-
 ```
 
 ## Getting Started
@@ -178,7 +172,7 @@ To run the service locally:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-repo/user-service.git
+   git clone https://github.com/viswarajramji/user.git
    ```
 
 2. **Build the application**:
@@ -193,10 +187,12 @@ To run the service locally:
 
 4. **Access the application** at `http://localhost:8080`.
 
+5. **Access the database** at `http://localhost:8080/h2-console`.
+
+**Note**: Ensure Kafka is running and the topic `userservice` is created.
+
 ## Swagger Endpoint
 
 Access the Swagger UI to interact with the API:
 
 - **URL**: `http://localhost:8080/swagger-ui.html`
-
-
